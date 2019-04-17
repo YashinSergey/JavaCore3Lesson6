@@ -5,6 +5,7 @@ import homework6.firstTask.message.MessageCellRenderer;
 import homework6.firstTask.message.MessageCreator;
 import homework6.firstTask.message.MessageSender;
 import homework6.firstTask.network.Network;
+import org.apache.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -27,6 +28,7 @@ public class MainWindow extends JFrame implements MessageSender {
     private Network network;
     private DefaultListModel<String> userListModel;
     private JList<String> userList;
+    private Logger chatLogger = Logger.getLogger("chat");
 
 
     public MainWindow(){
@@ -56,6 +58,8 @@ public class MainWindow extends JFrame implements MessageSender {
                             "Не указан получатель",
                             "Отправка сообщения",
                             JOptionPane.ERROR_MESSAGE);
+                    chatLogger.info(String.format("Попытка отправки сообщения от пользователя " +
+                            "%s. Не указан получатель", network.getUsername()));
                     return;
                 } else if(userTo.equals("To all")){
                     sendMessageToAll();
@@ -63,6 +67,7 @@ public class MainWindow extends JFrame implements MessageSender {
                     MessageCreator msg = new MessageCreator(network.getUsername(), userTo, text.trim());
                     submitMessage(msg);
                     network.sendMessageToUser(msg);
+                    chatLogger.info(String.format("Отправка сообщения от %s для %s", network.getUsername(),userTo));
                 }
             }
         });
@@ -87,6 +92,8 @@ public class MainWindow extends JFrame implements MessageSender {
                                 "Не указан получатель",
                                 "Отправка сообщения",
                                 JOptionPane.ERROR_MESSAGE);
+                        chatLogger.info(String.format("Попытка отправки сообщения от пользователя " +
+                                "%s. Не указан получатель", network.getUsername()));
                         return;
                     } else if(userTo.equals("To all")){
                         sendMessageToAll();
@@ -94,6 +101,7 @@ public class MainWindow extends JFrame implements MessageSender {
                         MessageCreator msg = new MessageCreator(network.getUsername(), userTo, text.trim());
                         submitMessage(msg);
                         network.sendMessageToUser(msg);
+                        chatLogger.info(String.format("Отправка сообщения от %s для %s", network.getUsername(),userTo));
                     }
                 }
             }

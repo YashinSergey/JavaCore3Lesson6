@@ -3,6 +3,7 @@ package homework6.firstTask.server;
 import homework6.firstTask.authorization.Authorization;
 import homework6.firstTask.authorization.AuthorizationService;
 import homework6.firstTask.message.ClientHandler;
+import org.apache.log4j.Logger;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -20,13 +21,16 @@ public class ChatServer {
     private Map<String, ClientHandler> clientHandlerMap = Collections.synchronizedMap(new HashMap<>());
     private DataInputStream inp;
     private DataOutputStream out;
+    private Logger chatLogger = Logger.getLogger("chat");
 
     public void start(int port) {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             System.out.println("Server started!");
+            chatLogger.info("Server started!");
             while (true) {
                 Socket socket = serverSocket.accept();
                 System.out.println("New client connected!");
+                chatLogger.info("New client connected.");
                 inp = new DataInputStream(socket.getInputStream());
                 out = new DataOutputStream(socket.getOutputStream());
                 try {
@@ -39,14 +43,17 @@ public class ChatServer {
                             clientHandlerMap.put(username, new ClientHandler(username, socket, this));
                             out.writeUTF("/auth is successful");
                             out.flush();
-                            System.out.printf("Authorization for user %s is successful%n", username);
+                            chatLogger.info(String.format("Authorization for user %s is successful%n", username));
+                            System.out.printf("%s is in", username);
                         } else {
+                            chatLogger.info(String.format("Authorization for user %s is failed%n", username));
                             System.out.printf("Authorization for user %s is failed%n", username);
                             out.writeUTF("/auth fails");
                             out.flush();
                             socket.close();
                         }
                     } else {
+                        chatLogger.info(String.format("Incorrect authorization message %s%n", authMessage));
                         System.out.printf("Incorrect authorization message %s%n", authMessage);
                         out.writeUTF("/auth failed");
                         out.flush();
