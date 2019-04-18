@@ -43,8 +43,8 @@ public class ChatServer {
                             clientHandlerMap.put(username, new ClientHandler(username, socket, this));
                             out.writeUTF("/auth is successful");
                             out.flush();
-                            chatLogger.info(String.format("Authorization for user %s is successful%n", username));
-                            System.out.printf("%s is in", username);
+                            chatLogger.info(String.format("%s is in", username));
+                            System.out.printf("Authorization for user %s is successful%n", username);
                         } else {
                             chatLogger.info(String.format("Authorization for user %s is failed%n", username));
                             System.out.printf("Authorization for user %s is failed%n", username);
@@ -60,10 +60,12 @@ public class ChatServer {
                         socket.close();
                     }
                 } catch (IOException e) {
+                    chatLogger.error("an exception has occurred " + e.getMessage());
                     e.printStackTrace();
                 }
             }
         } catch (IOException e) {
+            chatLogger.error("an exception has occurred " + e.getMessage());
             e.printStackTrace();
         }
     }
