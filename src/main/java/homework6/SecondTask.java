@@ -6,7 +6,7 @@ public class SecondTask {
 
     public int[] array(int... arr) throws RuntimeException{
         if(IntStream.of(arr).noneMatch(x -> x == 4)){
-            throw new RuntimeException();
+            throw new RuntimeException("Array have no 4");
         }
         
         int[] result = null;
