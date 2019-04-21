@@ -1,0 +1,11 @@
+2019-04-17 10:54:41 INFO   chat:29 - Server started!
+2019-04-17 11:12:02 INFO   chat:29 - Server started!
+2019-04-17 11:12:31 INFO   chat:33 - New client connected.
+2019-04-17 11:12:31 INFO   chat:46 - Authorization for user valery is successful
+
+2019-04-17 11:12:52 INFO   chat:33 - New client connected.
+2019-04-17 11:12:52 INFO   chat:46 - Authorization for user john is successful
+
+2019-04-17 11:12:59 INFO   chat:104 - Отправка сообщения от valery для valery
+2019-04-17 11:13:07 INFO   chat:104 - Отправка сообщения от valery для john
+2019-04-17 11:13:35 INFO   chat:104 - Отправка сообщения от john для valery
